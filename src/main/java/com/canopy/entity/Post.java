@@ -1,14 +1,10 @@
 package com.canopy.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,12 +18,9 @@ public class Post {
     private Post parent;
 
     @Column(nullable = false)
-    private UUID authorId; // Will link to User entity later
+    private UUID authorId;
 
-    // For tree traversal (optional, simplifies queries)
-    @Transient
-    private List<Post> children = new ArrayList<>();
-
+    // Getters and Setters
     public UUID getId() {
         return id;
     }
@@ -58,13 +51,5 @@ public class Post {
 
     public void setAuthorId(UUID authorId) {
         this.authorId = authorId;
-    }
-
-    public List<Post> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Post> children) {
-        this.children = children;
     }
 }
